@@ -20,6 +20,10 @@ define(dependencies, function(){
 		return context;
 	};
 
+	Canvas.prototype.getCanvas = function(){
+		return canvasElement;
+	};
+
 	Canvas.prototype.resize = function(){
 
 		canvasElement.width = window.innerWidth;

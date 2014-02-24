@@ -12,6 +12,7 @@ var dependencies = [
 define(dependencies, function(RGB, Canvas, EventManager, MainMenuScene){
 
 	var canvas = new Canvas();
+	var controller;
 	var EventManager = new EventManager();
 	var _currentScene;
 
@@ -22,9 +23,10 @@ define(dependencies, function(RGB, Canvas, EventManager, MainMenuScene){
 	Game.prototype.init = function(){
 
 		canvas.resize();
-		this.startupEvents();
 
-		_currentScene = new MainMenuScene(canvas.getContext());
+		_currentScene = new MainMenuScene(canvas);
+		
+		this.startupEvents();
 
 		requestAnimationFrame(this.update);
 
@@ -44,6 +46,7 @@ define(dependencies, function(RGB, Canvas, EventManager, MainMenuScene){
 	Game.prototype.startupEvents = function(){
 
 		EventManager.createEvent('WindowResizeEvent', 'resize', window, canvas.resize);
+		EventManager.createEvent('ControllerInputEvent', 'keydown', window, _currentScene.userInput);
 
 	};
 
