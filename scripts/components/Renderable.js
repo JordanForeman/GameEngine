@@ -16,6 +16,8 @@ define(dependencies, function(Vector2){
 		this.size.height = size.y;
 		this.sprite = sprite;
 
+		this.moveFrame = 0;
+
 		this.currentFrameIndex = 0;
 
 		this.direction = new Vector2(1, 1);
@@ -47,10 +49,15 @@ define(dependencies, function(Vector2){
 
 		if (this.moving)
 		{
-			if (this.currentFrameIndex == 2)
-				this.currentFrameIndex = 0;
-			else
-				this.currentFrameIndex++;
+			this.moveFrame += 1;
+
+			if (this.moveFrame % this.sprite.frameDelay == 0)
+			{
+				if (this.currentFrameIndex == 2)
+					this.currentFrameIndex = 0;
+				else
+					this.currentFrameIndex++;
+			}
 
 			this.moving = false;
 		}

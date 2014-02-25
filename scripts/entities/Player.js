@@ -96,7 +96,7 @@ define(dependencies, function(
 	};
 
 	Player.prototype.getSprite = function(){
-		var sprite = new Sprite('images/player.png', this.size);
+		var sprite = new Sprite('images/player.png', this.size, 4);
 		return sprite;
 	};
 
