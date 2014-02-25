@@ -6,6 +6,7 @@ var dependencies = [
 	'entities/GameObject', 
 	'helpers/RGB', 
 	'helpers/Vector2', 
+	'helpers/Sprite',
 	'components/Renderable',
 	'components/Movable', 
 	'components/Controllable',
@@ -13,21 +14,34 @@ var dependencies = [
 	'utils/ControllerConstants'
 ];
 
-define(dependencies, function(GameObject, RGB, Vector2, Renderable, Movable, Controllable, ComponentIdentifiers, ControllerConstants){
+define(dependencies, function(
+		GameObject, 
+		RGB, 
+		Vector2, 
+		Sprite, 
+		Renderable, 
+		Movable, 
+		Controllable, 
+		ComponentIdentifiers, 
+		ControllerConstants
+	){
 
 	var Player = function(){
 
 		this.gameObject = new GameObject();
 
+		this.size = new Vector2(38, 58);
+
 		//Renderable
 		var playerColor = new RGB(0, 0, 0),
 			initialPlayerPosition = new Vector2(0, 0),
-			playerSize = new Vector2(10, 10),
-			renderableComponent = new Renderable(playerColor, initialPlayerPosition, playerSize);
+			initialDirection = new Vector2(1, 1),
+			playerSprite = this.getSprite(),
+			renderableComponent = new Renderable(initialPlayerPosition, this.size, initialPlayerPosition, playerSprite);
 		this.gameObject.setComponent(ComponentIdentifiers.RENDERABLE_COMPONENT, renderableComponent);
 
 		//Movable
-		var playerVelocity = 10,
+		var playerVelocity = 5,
 			movableComponent = new Movable(renderableComponent, playerVelocity);
 		this.gameObject.setComponent(ComponentIdentifiers.MOVABLE_COMPONENT, movableComponent);
 
@@ -79,6 +93,11 @@ define(dependencies, function(GameObject, RGB, Vector2, Renderable, Movable, Con
 	{
 		var renderableComponent = this.gameObject.getComponent(ComponentIdentifiers.RENDERABLE_COMPONENT);
 		return renderableComponent;
+	};
+
+	Player.prototype.getSprite = function(){
+		var sprite = new Sprite('images/player.png', this.size);
+		return sprite;
 	};
 
 	Player.prototype.setRenderableProperty = function(property, value)

@@ -32,7 +32,9 @@ define(dependencies, function(ComponentIdentifiers){
 			var gameObjectController = _gameObjects[i].gameObject.getComponent(ComponentIdentifiers.CONTROLLABLE_COMPONENT);
 			if (gameObjectController)
 			{
-				gameObjectController.getTrigger(keyCode)(_gameObjects[i], this.canvas.getCanvas());
+				var triggerFunction = gameObjectController.getTrigger(keyCode);
+				if (triggerFunction)
+					triggerFunction(_gameObjects[i], this.canvas.getCanvas());
 			}
 		}
 
