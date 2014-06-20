@@ -14,7 +14,7 @@ define(dependencies, function(){
 
 	GameObject.prototype.getComponent = function(identifier)
 	{
-		return components[identifier];
+		return components[identifier] || null;
 	};
 
 	GameObject.prototype.setComponent = function(identifier, component)

@@ -9,7 +9,6 @@ require.config({
 require(['Game'], function(Game){
 
 	var game = new Game();
-
 	game.init();
 
 });

@@ -29,7 +29,7 @@ define(dependencies, function(
 	var Player = function(){
 
 		this.gameObject = new GameObject();
-
+		this.sprite = null;
 		this.size = new Vector2(38, 58);
 
 		//Renderable
@@ -96,8 +96,9 @@ define(dependencies, function(
 	};
 
 	Player.prototype.getSprite = function(){
-		var sprite = new Sprite('images/player.png', this.size, 4);
-		return sprite;
+		if (!this.sprite)
+			this.sprite = new Sprite('images/player.png', this.size, 4);
+		return this.sprite;
 	};
 
 	Player.prototype.setRenderableProperty = function(property, value)

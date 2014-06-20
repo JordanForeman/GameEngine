@@ -6,15 +6,14 @@ var dependencies = [
 	'helpers/RGB', 
 	'helpers/Canvas',
 	'helpers/EventManager',
-	'scenes/MainMenuScene'
+	'scenes/SceneManager'
 ];
 
-define(dependencies, function(RGB, Canvas, EventManager, MainMenuScene){
+define(dependencies, function(RGB, Canvas, EventManager, SceneManager){
 
 	var canvas = new Canvas();
-	var controller;
 	var EventManager = new EventManager();
-	var _currentScene;
+	var sceneManager = new SceneManager(canvas);
 
 	var Game = function(){
 
@@ -23,9 +22,6 @@ define(dependencies, function(RGB, Canvas, EventManager, MainMenuScene){
 	Game.prototype.init = function(){
 
 		canvas.resize();
-
-		_currentScene = new MainMenuScene(canvas);
-		
 		this.startupEvents();
 
 		requestAnimationFrame(this.update);
@@ -36,7 +32,7 @@ define(dependencies, function(RGB, Canvas, EventManager, MainMenuScene){
 		
 		//TODO: fix this...it is weird
 		var updateClosure = function(){
-			_currentScene.update();
+			sceneManager.updateCurrentScene();
 			requestAnimationFrame(updateClosure);
 		};
 
@@ -46,7 +42,7 @@ define(dependencies, function(RGB, Canvas, EventManager, MainMenuScene){
 	Game.prototype.startupEvents = function(){
 
 		EventManager.createEvent('WindowResizeEvent', 'resize', window, canvas.resize);
-		EventManager.createEvent('ControllerInputEvent', 'keydown', window, _currentScene.userInput);
+		EventManager.createEvent('ControllerInputEvent', 'keydown', window, sceneManager.getCurrentScene().userInput);
 
 	};
 
